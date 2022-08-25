@@ -1,0 +1,195 @@
+{
+	"info": {
+		"_postman_id": "2b68fb6a-7d26-45da-b21a-2c87f29f00b3",
+		"name": "Yolo_Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15394549"
+	},
+	"item": [
+		{
+			"name": "User details Validation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"//Vaidating results with multiple fields\r",
+							"res = pm.response.json();\r",
+							"pm.test(\"Validating User Name and ID =>Test is pass\", function () {\r",
+							"    pm.expect(res[2].id).to.eql(2854);\r",
+							"    pm.expect(res[2].name).to.eql(\"Dr. Bhaswar Patel\");\r",
+							"    pm.expect(res[4].name).to.be.eql(\"Mr. Bhuvanesh Menon\");\r",
+							"    pm.expect(res[4].status).to.be.eql(\"inactive\")    \r",
+							"});\r",
+							"\r",
+							"//Checking for a particular User is available\r",
+							"pm.test(\"Checking for a particular User==>Test is pass\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Rukhmani Sinha\");\r",
+							"});\r",
+							"tests[\"Checking user - Dipali is present ==>Pass\"]=responseBody.has(\"Trilok Gowda\");\r",
+							"\r",
+							"//Testing Headers\r",
+							"pm.test(\"Verification of Header (Server is cloudflare) & Header should have content type\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"    pm.response.to.be.header(\"Server\",\"cloudflare\")\r",
+							"});  \r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"res = pm.response.json();\r",
+							"pm.test(\"User Name and Email Created =>Test is pass\", function () {\r",
+							"    pm.expect(res.name).to.eql(\"Jathin\") && pm.expect(res.email).to.eql(\"Jathin.p@yolo.com\")\r",
+							"tests[\"checking User status is active ==Pass\"]=res.status==\"active\"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Authorization}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\":2022,\"name\":\"Jathin\",\"email\":\"Jathin.p@yolo.com\",\"gender\":\"male\",\"message\":\"Hello\",\"status\":\"active\"}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Checking status code for deletion ==>Pass\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms ==> Pass\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(600);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Authorization}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}//public/v2/users/4892",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"",
+						"public",
+						"v2",
+						"users",
+						"4892"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "Access Token",
+			"value": "14a33214291719b4e3c17be7449cd3251c5bebd23a64160ecdef34943307c2c9"
+		},
+		{
+			"key": "BaseUrl",
+			"value": "https://gorest.co.in"
+		}
+	]
+}
