@@ -16,7 +16,7 @@ GET : Requests the details of the user in https://gorest.co.in/public/v2/users
 
 POST : Creates new users in https://gorest.co.in/public/v2/users
   - Creating a new user and checking for successfull status code.
-  - User detail validation
+  - User details validation
 
 Delete : Delete's users in https://gorest.co.in/public/v2/users
   - Successfull deletion status code [ no message is seen after deleting a user]
