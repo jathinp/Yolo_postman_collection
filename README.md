@@ -8,7 +8,7 @@ Description: This is an API Collection of automated tests for GET, POST, DELETE 
 Tool Used : POSTMAN
 
 GET : Requests the details of the user in https://gorest.co.in/public/v2/users
-  - Success status code
+  - Successful status code validation
   - Checking for a particular user
   - User data fields validation based on Index
   - Ensuring header will have a content-Type
